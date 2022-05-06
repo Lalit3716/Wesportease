@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Toolbar as MuiToolbar,
   Typography,
@@ -22,7 +23,7 @@ const Toolbar: React.FC = () => {
   return (
     <MuiToolbar>
       <Typography variant="h4" fontFamily="Koulen, cursive" flexGrow={1}>
-        WeSportease
+        <Link to="/">WeSportease</Link>
       </Typography>
       {!showSearch && <SearchField />}
       {!isMobile ? (

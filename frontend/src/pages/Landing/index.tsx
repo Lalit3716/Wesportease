@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import {
   Stack,
-  Divider,
   Container,
   Typography,
   useMediaQuery,
@@ -35,7 +34,6 @@ const LandingPage = () => {
   return (
     <>
       <Navbar />
-      <Divider />
       <Stack direction="row">
         {!isMobile ? (
           <Filters />
