@@ -1,8 +1,13 @@
 import React from "react";
-import { Typography } from "@mui/material";
+import { Box } from "@mui/material";
+import Navbar from "./components/Navbar";
 
 const App: React.FC = () => {
-  return <Typography variant="h3">Hello from react :{")"}</Typography>;
+  return (
+    <Box>
+      <Navbar />
+    </Box>
+  );
 };
 
 export default App;
