@@ -4,21 +4,29 @@ if (process.env.NODE_ENV !== "production") {
 
 import express from "express";
 import connectDB from "./config/dbConfig";
+import authRoutes from "./routes/auth";
+import cors from "cors";
 
-connectDB()
-  .then(() => {
-    const app = express();
+connectDB();
 
-    const PORT = process.env.PORT || 5000;
+const app = express();
 
-    app.get("/", (req, res) => {
-      res.send("<h1>Server is up and running :)</h1>");
-    });
-
-    app.listen(PORT, () => {
-      console.log(`Server listening on port ${PORT} :)`);
-    });
+app.use(
+  cors({
+    origin: "*",
   })
-  .catch(err => {
-    console.log("Error Connecting to database :(");
-  });
+);
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+app.use("/api/auth", authRoutes);
+
+app.use("*", (req, res) => {
+  res.send("<h1>Server is up and running :)</h1>");
+});
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT} :)`);
+});

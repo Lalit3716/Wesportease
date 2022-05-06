@@ -8,9 +8,14 @@ const StyledTextField = styled(TextField)({
   },
 });
 
-const SearchField: React.FC = () => {
+interface Props {
+  mb?: number;
+  mr?: number;
+}
+
+const SearchField: React.FC<Props> = ({ mb, mr }) => {
   return (
-    <Stack spacing={0} direction="row" flexGrow={1}>
+    <Stack spacing={0} direction="row" flexGrow={1} mb={mb || 0} mr={mr}>
       <StyledTextField
         label="Search"
         variant="outlined"

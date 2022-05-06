@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm, Controller, FieldValues } from "react-hook-form";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 import {
   Typography,
   Stack,
@@ -13,11 +14,17 @@ import {
   Button,
 } from "@mui/material";
 import Navbar from "../../components/Navbar";
+import useHttp from "../../hooks/useHttp";
+import { API } from "../../config";
+import useAuth from "../../hooks/useAuth";
 
 const AuthPage: React.FC = () => {
+  const navigate = useNavigate();
+  const { login } = useAuth();
   const [searchParams] = useSearchParams();
   const [authType, setAuthType] = useState("Login");
   const q = searchParams.get("q") === "signup" ? "Signup" : "Login";
+  const { isLoading, sendRequest, error } = useHttp();
   const {
     handleSubmit,
     control,
@@ -32,8 +39,22 @@ const AuthPage: React.FC = () => {
     setAuthType(authType === "Login" ? "Signup" : "Login");
   };
 
+  const apiRequest = async (formData: FieldValues) => {
+    if (authType === "Login") {
+      const { data } = await axios.post(`${API}/auth/login`, formData);
+
+      return data;
+    } else {
+      const { data } = await axios.post(`${API}/auth/signup`, formData);
+      return data;
+    }
+  };
+
   const onSubmit = (formData: FieldValues) => {
-    console.log(formData);
+    sendRequest(apiRequest, formData, (data: any) => {
+      login(data.user, data.token, data.expiresIn);
+      navigate("/");
+    });
   };
 
   return (
@@ -51,6 +72,7 @@ const AuthPage: React.FC = () => {
         <Card
           sx={{ minWidth: "30%" }}
           component="form"
+          elevation={5}
           onSubmit={handleSubmit(onSubmit)}
         >
           <CardContent>
@@ -124,6 +146,18 @@ const AuthPage: React.FC = () => {
                   {authType}
                 </Button>
               </Stack>
+              {isLoading && (
+                <Typography variant="body2" color="Highlight">
+                  {authType === "Login"
+                    ? "Logging you in..."
+                    : "Registering you in..."}
+                </Typography>
+              )}
+              {error && (
+                <Typography variant="body2" color="error">
+                  {error}
+                </Typography>
+              )}
               <Stack
                 direction="row"
                 justifyContent="space-between"

@@ -12,7 +12,6 @@ interface Props {
 }
 
 const Drawer: React.FC<Props> = ({ onClose, showSearch }) => {
-  console.log(showSearch);
   return createPortal(
     <Box
       bgcolor="white"
@@ -36,7 +35,7 @@ const Drawer: React.FC<Props> = ({ onClose, showSearch }) => {
           <Close fontSize="large" />
         </IconButton>
         <Stack spacing={1}>
-          {showSearch && <SearchField />}
+          {showSearch && <SearchField mb={2} />}
           <NavLinks inDrawer />
         </Stack>
       </motion.div>

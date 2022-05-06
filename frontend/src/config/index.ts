@@ -1,1 +1,1 @@
-export const API = "https://sportplaces.api.decathlon.com/api/v1/places";
+export const API = "http://localhost:5000/api";

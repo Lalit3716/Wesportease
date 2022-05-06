@@ -25,7 +25,7 @@ const Toolbar: React.FC = () => {
       <Typography variant="h4" fontFamily="Koulen, cursive" flexGrow={1}>
         <Link to="/">WeSportease</Link>
       </Typography>
-      {!showSearch && <SearchField />}
+      {!showSearch && <SearchField mr={10} />}
       {!isMobile ? (
         <NavLinks />
       ) : (
