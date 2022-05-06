@@ -1,12 +1,13 @@
 import React from "react";
+import { Routes, Route } from "react-router";
 import { Box } from "@mui/material";
-import Navbar from "./components/Navbar";
+import LandingPage from "./pages/Landing";
 
 const App: React.FC = () => {
   return (
-    <Box>
-      <Navbar />
-    </Box>
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+    </Routes>
   );
 };
 

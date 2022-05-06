@@ -9,7 +9,6 @@ import { Menu } from "@mui/icons-material";
 import NavLinks from "./NavLinks";
 import Drawer from "./Drawer";
 import SearchField from "./SearchBar";
-import { AnimatePresence } from "framer-motion";
 
 const Toolbar: React.FC = () => {
   const isMobile = useMediaQuery("(max-width: 1036px)");
@@ -21,24 +20,20 @@ const Toolbar: React.FC = () => {
   };
 
   return (
-    <AnimatePresence>
-      <MuiToolbar>
-        <Typography variant="h4" fontFamily="Koulen, cursive" flexGrow={1}>
-          WeSportease
-        </Typography>
-        {!showSearch && <SearchField />}
-        {!isMobile ? (
-          <NavLinks />
-        ) : (
-          <IconButton onClick={handleMenuBtnClk}>
-            <Menu fontSize="large" />
-          </IconButton>
-        )}
-        {isOpen && (
-          <Drawer onClose={handleMenuBtnClk} showSearch={showSearch} />
-        )}
-      </MuiToolbar>
-    </AnimatePresence>
+    <MuiToolbar>
+      <Typography variant="h4" fontFamily="Koulen, cursive" flexGrow={1}>
+        WeSportease
+      </Typography>
+      {!showSearch && <SearchField />}
+      {!isMobile ? (
+        <NavLinks />
+      ) : (
+        <IconButton onClick={handleMenuBtnClk}>
+          <Menu fontSize="large" />
+        </IconButton>
+      )}
+      {isOpen && <Drawer onClose={handleMenuBtnClk} showSearch={showSearch} />}
+    </MuiToolbar>
   );
 };
 
